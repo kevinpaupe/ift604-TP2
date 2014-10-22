@@ -1,4 +1,9 @@
-package com.example.tp2;
+package ca.udes.ift604.tp2;
+
+import com.example.tp2.R;
+import com.example.tp2.R.id;
+import com.example.tp2.R.layout;
+import com.example.tp2.R.menu;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
