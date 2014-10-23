@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.os.AsyncTask;
+import android.util.Log;
 import ca.udes.ift604.tp2.match.Match;
 import ca.udes.ift604.tp2.tools.Tools;
 
-public class ClientUDP
+public class ClientUDP extends AsyncTask<String, Void, Void>
 {
     /*------------------------------------------------------------------*\
     |*                          Attributs Private                       *|
@@ -22,6 +24,7 @@ public class ClientUDP
     private int serverPort;
     private List<Match> listMatch;
     private static final int size = 1024;
+    public boolean clientOk;
 
     static byte sendBuffer[] = new byte[size];
 
@@ -34,18 +37,21 @@ public class ClientUDP
         clientSocket = new DatagramSocket();
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
+        clientOk = false;
     }
 
     /*------------------------------------------------------------------*\
     |*                          Methodes Public                         *|
     \*------------------------------------------------------------------*/
 
-    public void start(String request)
+    @Override
+    protected Void doInBackground(String... params)
     {
         try
         {
-            System.out.println("Client Start : " + serverAddress);
+            Log.i("MyActivity", "Client Start : " + serverAddress);
 
+            String request = params[0];
             // On demande la liste de match
             sendBuffer = request.getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, serverPort);
@@ -72,12 +78,20 @@ public class ClientUDP
 
         } catch (Exception e)
         {
-            System.err.println("Error Client");
+            Log.e("MyActivity", "Error Client");
             e.printStackTrace();
         } finally
         {
             clientSocket.close();
         }
+
+        return null;
+    }
+
+    @Override
+    public void onPostExecute(Void result)
+    {
+        clientOk = true;
     }
 
     /*------------------------------*\
@@ -95,7 +109,7 @@ public class ClientUDP
         int index = findIndexMatch(nomMatch);
         if (index == -1)
         {
-            System.out.println("Erreur de la requette");
+            Log.e("MyActivity", "Erreur de la requette");
             return new Match(new Date(), "Error", "Error", "Error", -1);
         } else
         {
@@ -120,4 +134,5 @@ public class ClientUDP
         }
         return ret;
     }
+
 }
