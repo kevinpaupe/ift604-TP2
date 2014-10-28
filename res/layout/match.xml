@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FF8E33"
+    android:stretchColumns="1,2,3" >
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/dateText"
+            style="@style/texte_match"
+            android:layout_column="0"
+            android:layout_span="4"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/date"
+            android:textSize="12sp"
+            />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/periodText"
+            android:layout_column="1"
+            style="@style/texte_match"
+            android:text="@string/period" />
+
+        <TextView
+            android:id="@+id/timeText"
+            style="@style/texte_match"
+            android:text="@string/time" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/teamText"
+            style="@style/texte_match"
+            android:layout_column="1"
+            android:text="@string/team" />
+
+        <TextView
+            android:id="@+id/team1Text"
+            style="@style/texte_match"
+            android:text="@string/tiret" />
+
+        <TextView
+            android:id="@+id/team2Text"
+            style="@style/texte_match"
+            android:text="@string/tiret" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/goalText"
+            style="@style/texte_match"
+            android:layout_column="1"
+            android:text="@string/goal" />
+
+        <TextView
+            android:id="@+id/goal1Text"
+            style="@style/texte_match"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/goal2Text"
+            style="@style/texte_match"
+            android:text="@string/zero" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/penaltyText"
+            style="@style/texte_match"
+            android:layout_column="1"
+            android:text="@string/penalty" />
+
+        <TextView
+            android:id="@+id/penalty1Text"
+            style="@style/texte_match"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/penalty2Text"
+            style="@style/texte_match"
+            android:text="@string/zero" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/btnUpdateMatch"
+            style="@style/button_match"
+            android:layout_height="50dp"
+            android:layout_column="0"
+            android:layout_span="4"
+            android:text="@string/update" />
+    </TableRow>
+
+</TableLayout>

@@ -22,21 +22,45 @@ public class MainActivity extends Activity
 
     public static final String SERVERIP = "192.168.2.21";
     public static final int SERVERPORT = 8000;
-    public TextView text1;
-    public Button buttonUpdate;
 
     private ClientUDP clientUDP;
     private InetAddress ip;
+
+    public TextView dateText;
+    public TextView periodText;
+    public TextView timeText;
+    public TextView teamText;
+    public TextView team1Text;
+    public TextView team2Text;
+    public TextView goalText;
+    public TextView goal1Text;
+    public TextView goal2Text;
+    public TextView penaltyText;
+    public TextView penalty1Text;
+    public TextView penalty2Text;
+    public Button btnUpdateMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.match);
 
-        text1 = (TextView) findViewById(R.id.textView1);
-        buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
+        dateText = (TextView) findViewById(R.id.dateText);
+        periodText = (TextView) findViewById(R.id.periodText);
+        timeText = (TextView) findViewById(R.id.timeText);
+        teamText = (TextView) findViewById(R.id.teamText);
+        team1Text = (TextView) findViewById(R.id.team1Text);
+        team2Text = (TextView) findViewById(R.id.team2Text);
+        goalText = (TextView) findViewById(R.id.goalText);
+        goal1Text = (TextView) findViewById(R.id.goal1Text);
+        goal2Text = (TextView) findViewById(R.id.goal2Text);
+        penaltyText = (TextView) findViewById(R.id.penaltyText);
+        penalty1Text = (TextView) findViewById(R.id.penalty1Text);
+        penalty2Text = (TextView) findViewById(R.id.penalty2Text);
 
+        btnUpdateMatch = (Button) findViewById(R.id.btnUpdateMatch);
+        
         try
         {
             ip = InetAddress.getByName(SERVERIP);
@@ -52,7 +76,7 @@ public class MainActivity extends Activity
             e.printStackTrace();
         }
 
-        buttonUpdate.setOnClickListener(new OnClickListener()
+        btnUpdateMatch.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -69,7 +93,7 @@ public class MainActivity extends Activity
                         {
                             if (clientUDP.clientOk)
                             {
-                                text1.setText(clientUDP.getListMatch().get(0).toString());
+                                update(0);
                             }
                         }
                     }, 700);
@@ -103,5 +127,25 @@ public class MainActivity extends Activity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void update(int index)
+    {
+        dateText.setText(clientUDP.getListMatch().get(index).getDate().toString());
+        periodText.setText(clientUDP.getListMatch().get(index).getPeriod() + " Per");
+
+        long millis = clientUDP.getListMatch().get(index).getChrono().getTimeLeft();
+        int min = (int) (millis / 60000);
+        millis -= (min * 60000);
+        int sec = (int) ((millis / 1000) % 60);
+        
+        timeText.setText(String.format("%02d : %02d",min,sec));
+
+        team1Text.setText(clientUDP.getListMatch().get(index).getTeam1());
+        team2Text.setText(clientUDP.getListMatch().get(index).getTeam2());
+        goal1Text.setText(""+clientUDP.getListMatch().get(index).getGoalTeam1());
+        goal2Text.setText(""+clientUDP.getListMatch().get(index).getGoalTeam2());
+        penalty1Text.setText(""+clientUDP.getListMatch().get(index).getPenaltyTeam1());
+        penalty2Text.setText(""+clientUDP.getListMatch().get(index).getPenaltyTeam2());
     }
 }
