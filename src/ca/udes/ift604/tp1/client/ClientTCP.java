@@ -1,4 +1,4 @@
-package ca.udes.ift604.tp1.android;
+package ca.udes.ift604.tp1.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

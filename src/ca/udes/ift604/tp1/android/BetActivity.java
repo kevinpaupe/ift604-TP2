@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.udes.ift604.tp1.client.ClientTCP;
 import ca.udes.ift604.tp1.match.Bet;
 import ca.udes.ift604.tp1.match.Match;
 import ca.udes.ift604.tp1.match.User;
