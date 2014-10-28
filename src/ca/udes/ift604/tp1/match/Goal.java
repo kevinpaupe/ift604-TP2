@@ -1,10 +1,15 @@
-package ca.udes.ift604.tp2.match;
+package ca.udes.ift604.tp1.match;
 
 import java.io.Serializable;
 
 public class Goal implements Serializable
 {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5844932917320517647L;
+    
     /*------------------------------------------------------------------*\
     |*                          Attributs Private                       *|
     \*------------------------------------------------------------------*/

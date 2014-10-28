@@ -1,4 +1,4 @@
-package ca.udes.ift604.tp2.tools;
+package ca.udes.ift604.tp1.tools;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
 
 public class Tools
@@ -26,17 +27,19 @@ public class Tools
         return baos.toByteArray();
     }
 
-    public static Serializable deserealizer(byte[] tabByte) throws IOException, ClassNotFoundException
+    public static Serializable deserealizer(byte[] tabByte) throws OptionalDataException, ClassNotFoundException, IOException
     {
+
         ByteArrayInputStream bais = new ByteArrayInputStream(tabByte);
         BufferedInputStream bis = new BufferedInputStream(bais);
         ObjectInputStream ois = new ObjectInputStream(bis);
 
         Serializable serializable = (Serializable) ois.readObject();
-        
+
         ois.close();
         bis.close();
         bais.close();
+
         return serializable;
     }
 }

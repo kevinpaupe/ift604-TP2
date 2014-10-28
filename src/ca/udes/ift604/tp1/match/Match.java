@@ -1,18 +1,21 @@
-package ca.udes.ift604.tp2.match;
+package ca.udes.ift604.tp1.match;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("serial")
 public class Match implements Serializable
 {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4646585754834531203L;
+    
     /*------------------------------------------------------------------*\
     |*                          Attributs Private                       *|
     \*------------------------------------------------------------------*/
-
+    
     private Date date;
     private String team1;
     private String team2;

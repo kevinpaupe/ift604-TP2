@@ -1,4 +1,4 @@
-package ca.udes.ift604.tp2;
+package ca.udes.ift604.tp1.android;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -6,25 +6,27 @@ import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import ca.udes.ift604.tp2.client.ClientUDP;
+import ca.udes.ift604.tp1.client.ClientUDP;
 
 import com.example.tp2.R;
 
 public class MainActivity extends Activity
 {
 
-    public static final String SERVERIP = "10.238.144.40";
+    public static final String SERVERIP = "192.168.2.21";
     public static final int SERVERPORT = 8000;
     public TextView text1;
     public Button buttonUpdate;
 
     private ClientUDP clientUDP;
+    private InetAddress ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,21 +37,9 @@ public class MainActivity extends Activity
         text1 = (TextView) findViewById(R.id.textView1);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
 
-        buttonUpdate.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (clientUDP.clientOk)
-                {
-                    text1.setText(clientUDP.getMatch("match1").getTeam1());
-                }
-            }
-        });
-
         try
         {
-            InetAddress ip = InetAddress.getByName(SERVERIP);
+            ip = InetAddress.getByName(SERVERIP);
             clientUDP = new ClientUDP(ip, SERVERPORT);
 
             clientUDP.execute("update");
@@ -62,7 +52,35 @@ public class MainActivity extends Activity
             e.printStackTrace();
         }
 
-        text1.setText(clientUDP.getMatch("match1").getTeam1());
+        buttonUpdate.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    clientUDP = new ClientUDP(ip, SERVERPORT);
+                    clientUDP.execute("update");
+
+                    new Handler().postDelayed(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if (clientUDP.clientOk)
+                            {
+                                text1.setText(clientUDP.getListMatch().get(0).toString());
+                            }
+                        }
+                    }, 700);
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+        });
     }
 
     @Override
